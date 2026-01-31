@@ -69,6 +69,6 @@ clean:
 	$(RM)
 
 # Run QEMU
-run: $(BUILD_DIR) $(TARGET).elf
-	$(CLEAR)
+run: all
+	@$(CLEAR)
 	@qemu-system-arm -M lm3s6965evb -semihosting-config enable=on,target=native -nographic -kernel $(TARGET).elf

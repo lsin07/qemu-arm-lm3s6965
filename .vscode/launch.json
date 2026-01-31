@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug QEMU",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "qemu",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/Build/main.elf",
+            "cpu": "cortex-m3",
+            "machine": "lm3s6965evb",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none",
+
+            "preLaunchTask": "build firmware" 
+        }
+    ]
+}

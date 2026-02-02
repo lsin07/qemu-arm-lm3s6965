@@ -12,6 +12,8 @@ extern uint32_t _sidata;
 /* Main function prototype */
 extern int main(void);
 
+void UART0_Handler(void);
+
 /* Reset Handler */
 void Reset_Handler(void) {
     uint32_t *pSrc, *pDest;
@@ -58,4 +60,13 @@ void (*const g_pfnVectors[])(void) = {
     0,                          /* Reserved */
     Default_Handler,            /* PendSV Handler */
     Default_Handler,            /* SysTick Handler */
+
+    /* External Interrupts (IRQ) */
+    Default_Handler,            /* GPIO Port A */
+    Default_Handler,            /* GPIO Port B */
+    Default_Handler,            /* GPIO Port C */
+    Default_Handler,            /* GPIO Port D */
+    Default_Handler,            /* GPIO Port E */
+    UART0_Handler,              /* UART0 (IRQ 5) */
+    Default_Handler,            /* UART1 */
 };

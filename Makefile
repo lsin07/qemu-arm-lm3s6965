@@ -19,6 +19,9 @@ LDSCRIPT = $(BSP_DIR)/lm3s6965.ld
 # main.c is in the root, startup is in the BSP directory
 SRCS = main.c $(BSP_DIR)/startup_lm3s6965.c
 
+# Include paths
+INCS = ./include
+
 # Object files
 # 1. $(SRCS:.c=.o) -> changes .c extension to .o (e.g., main.o lm3s6965/startup_lm3s6965.o)
 # 2. $(notdir ...) -> removes directory paths (e.g., main.o startup_lm3s6965.o)
@@ -29,8 +32,23 @@ OBJS = $(addprefix $(BUILD_DIR)/, $(notdir $(SRCS:.c=.o)))
 vpath %.c . $(BSP_DIR)
 
 # Flags
-CFLAGS = -mcpu=cortex-m3 -mthumb -O0 -g -Wall --specs=rdimon.specs
-LDFLAGS = -mcpu=cortex-m3 -mthumb -T $(LDSCRIPT) --specs=rdimon.specs -Wl,-Map=$(TARGET).map -Wl,--gc-sections -lc -lrdimon
+INC_FLAGS = $(addprefix -I,$(INCS))
+CFLAGS		+= $(INC_FLAGS) 
+CFLAGS		+= -mcpu=cortex-m3
+CFLAGS		+= -mthumb
+CFLAGS		+= -O0
+CFLAGS		+= -g
+CFLAGS		+= -Wall
+CFLAGS		+= --specs=rdimon.specs
+LDFLAGS		+= $(INC_FLAGS)
+LDFLAGS		+= -mcpu=cortex-m3
+LDFLAGS		+= -mthumb
+LDFLAGS		+= -T $(LDSCRIPT)
+LDFLAGS		+= --specs=rdimon.specs
+LDFLAGS		+= -Wl,-Map=$(TARGET).map
+LDFLAGS		+= -Wl,--gc-sections
+LDFLAGS		+= -lc
+LDFLAGS		+= -lrdimon
 
 ifeq ($(OS), Windows_NT)
 # Windows Settings
